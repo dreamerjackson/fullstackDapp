@@ -18,7 +18,7 @@ class Compaindex extends Component{
     //     const compaign =  await factory.methods.getDeployedCampaign().call();
     //     console.log(compaign);
     // }
- 
+  
     renderCampaign(){
         const items = this.props.compaign.map(address=>{
               return{
