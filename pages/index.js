@@ -1,14 +1,14 @@
 import React,{Component} from 'react';
 import factory from '../ethereum/factory';
-import { Card } from 'semantic-ui-react'
+import Layout from '../components/Layout';
+import { Card,Button} from 'semantic-ui-react'
+import {Link} from '../routes';
 // export default ()=>{
 //   return <h1>hello index</h1>;
 // }
 
 
 class Compaindex extends Component{
-
-
 
     static async getInitialProps(){
           const compaign =  await factory.methods.getDeployedCampaign().call();
@@ -18,12 +18,12 @@ class Compaindex extends Component{
     //     const compaign =  await factory.methods.getDeployedCampaign().call();
     //     console.log(compaign);
     // }
-  
+
     renderCampaign(){
         const items = this.props.compaign.map(address=>{
               return{
                 header: address,
-                description: <a>查看众筹</a>,
+                description: <Link route={`/compaigns/${address}`}><a>查看众筹</a></Link>,
                 fluid:true
               }
         });
@@ -33,15 +33,18 @@ class Compaindex extends Component{
 
   render(){
     return (
+      <Layout>
     <div>
-      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css"></link>
-      {this.renderCampaign()}
+    <h3>众筹列表</h3>
+
+    <Link route="/compaigns/new">
+    
+     <Button  floated="right" content='创建众筹' icon='add' labelPosition='right'  primary/>
+     </Link>
+         {this.renderCampaign()}
     </div>
-
+  </Layout>
   );
-
-
   }
-
 }
 export default Compaindex;
