@@ -3,7 +3,9 @@ import React from 'react';
 import Campaign from '../../ethereum/campaign';
 import Layout from '../../components/Layout';
 import { Card } from 'semantic-ui-react';
-
+import ContributeFrom from '../../components/contributeForm';
+import { Grid } from 'semantic-ui-react';
+import web3 from '../../ethereum/web3';
 class Compaingnshow extends React.Component{
   static async getInitialProps(props){
 
@@ -21,8 +23,6 @@ class Compaingnshow extends React.Component{
           manager:summary[4]
       };
   }
-
-
   renderCards(){
       const {
         address,
@@ -59,8 +59,8 @@ class Compaingnshow extends React.Component{
           style:{overflowWrap:'break-word'}
         },
         {
-          header:balance,
-          meta:'总筹总的金额',
+          header:web3.utils.fromWei(balance,'ether'),
+          meta:'总筹总的金额(ether)',
           description:'当前总筹中，还剩下了多少的金额。',
           style:{overflowWrap:'break-word'}
         }
@@ -72,12 +72,20 @@ class Compaingnshow extends React.Component{
 
 render(){
 
-
-
   return (
     <Layout>
       <h1>众筹显示</h1>
-      {this.renderCards()}
+
+        <Grid>
+            <Grid.Column width={10}>
+                    {this.renderCards()}
+            </Grid.Column>
+
+            <Grid.Column width={6}>
+                    <ContributeFrom  address={this.props.address}/>
+            </Grid.Column>
+        </Grid>
+
     </Layout>
   );
 }
