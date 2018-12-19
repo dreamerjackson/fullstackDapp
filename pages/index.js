@@ -12,6 +12,7 @@ class Compaindex extends Component{
 
     static async getInitialProps(){
           const compaign =  await factory.methods.getDeployedCampaign().call();
+
             return {compaign};
     }
     // async componentDidMount(){
@@ -20,7 +21,7 @@ class Compaindex extends Component{
     // }
 
     renderCampaign(){
-        const items = this.props.compaign.map(address=>{
+        const items = this.props.compaign.map((address)=>{
               return{
                 header: address,
                 description: <Link route={`/compaigns/${address}`}><a>查看众筹</a></Link>,
@@ -38,7 +39,7 @@ class Compaindex extends Component{
     <h3>众筹列表</h3>
 
     <Link route="/compaigns/new">
-    
+
      <Button  floated="right" content='创建众筹' icon='add' labelPosition='right'  primary/>
      </Link>
          {this.renderCampaign()}
